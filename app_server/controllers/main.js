@@ -317,7 +317,27 @@ const findtable = function(req,res){
     }
   })
 };
-
+const search = function(req,res){
+  var staff=[];
+  // console.log(req.body.search);
+  facultyAdd.find({
+    Fsubject: req.body.search.toUpperCase()
+  },(err,facultyAdd)=>{
+    // facultyAdd.Fsubject.split
+    staff = facultyAdd;
+    // console.log(staff);
+    if(staff.length==0){
+      res
+      .status(404)
+      .render('error');
+    }
+    else{
+      res
+      .status(201)
+      .render('listoffaculties',{staff});
+    }
+  })
+}
 module.exports = {
   index,
   sendtimetable,
@@ -330,5 +350,6 @@ module.exports = {
   verifyOtp,
   otp1,
   findtable,
-  findtimetable 
+  findtimetable,
+  search
 };

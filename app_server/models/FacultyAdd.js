@@ -43,6 +43,7 @@ const FacultySchema = new Schema({
    },
    Fsubject:{
        type:String,
+       required:true
    },
    Fcontact:{
        type:Number,

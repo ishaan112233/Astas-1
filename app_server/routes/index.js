@@ -22,6 +22,7 @@ router.get('/stu_timetable',function(req,res,next){
     res.render('timetable');
     // next();
 });
+router.post('/list-of-faculties/search',ctrlmain.search);
 router.post('/findtable',ctrlmain.findtable);
 // router.post('/teacher_page',ctrlmain.teacher);
 //     // res.render('teacher');
