@@ -9,29 +9,37 @@ router.get('/',function(req,res,next){
     res.render('index');
     // next();
 });
+router.post('/otp',ctrlmain.otp);
+router.post('/otp1',ctrlmain.otp1);
 router.get('/faculty',function(req,res,next){
     res.render('Faculty_login');
     // next();
 });
+router.get('/logout',function(req,res){
+    res.redirect('/');
+    });
 router.get('/stu_timetable',function(req,res,next){
     res.render('timetable');
     // next();
 });
-router.post('/teacher_page',ctrlmain.teacher);
-    // res.render('teacher');
+router.post('/findtable',ctrlmain.findtable);
+// router.post('/teacher_page',ctrlmain.teacher);
+//     // res.render('teacher');
+//     // next();
+// // });
+// router.post('/HOD',ctrlmain.hod);
+//     // res.render('HOD');
+//     // next();
+// // });
+router.get('/make-timetable',function(req,res,next){
+    res.render('timetable');
     // next();
-// });
-router.post('/HOD',ctrlmain.hod);
-    // res.render('HOD');
-    // next();
-// });
-router.get('/make-timetable',ctrlmain.timeTable);
+});
 
 router.get('/request',function(req,res,next){
     res.render('Request');
 });
-
-
+router.post('/faculties',ctrlmain.verifyOtp);
 router.get('/notice-upload',(req,res,next)=>{
     res.render('notice_upload');
 })
@@ -40,7 +48,7 @@ router.post('/notice-data',(req,res,next)=>{
    res.send('ok');
 })
 router.post('/showtimetable', ctrlmain.sendtimetable);
-
+router.get('/showtimetable/:id', ctrlmain.findtimetable);
 router.get('/moderator',(req,res)=>{
      res.render('moderator');
 })
@@ -54,13 +62,5 @@ router.get('/list-of-faculties/edit/:id',ctrlmain.editFaculties);
 router.put('/list-of-faculties/:id',ctrlmain.updateFaculties)
 
 router.delete('/list-of-faculties/:id',ctrlmain.removeFaculties);
-
-router.get('/upload-list',ctrlmain.uploadFiles)
-
-router.post('/upload/list',ctrlmain.showFilesData)
-
-router.post('/venues-list',ctrlmain.venueList)
-
-router.get('/venues-list',ctrlmain.showAllVenues)
 
 module.exports = router;

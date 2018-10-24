@@ -13,9 +13,10 @@
     "dotenv": "^6.1.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "gridfs-stream": "^1.1.1",
     "method-override": "^3.0.0",
-    "mongoose": "^5.3.3",
+    "mongoose": "^5.3.6",
     "morgan": "^1.9.0",
     "multer": "^1.4.1",
     "multer-gridfs-storage": "^3.2.3",
@@ -23,9 +24,8 @@
     "nodemon": "^1.18.4",
     "otp-generator": "^1.1.0",
     "pug": "~2.0.0-beta6",
+    "sendotp": "^1.2.9",
     "serve-favicon": "^2.5.0",
-    "twilio": "^3.22.0",
-    "xls-to-json-lc": "^0.3.4",
-    "xlsx-to-json-lc": "^0.5.0"
+    "twilio": "^3.23.1"
   }
 }

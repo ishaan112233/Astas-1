@@ -1,11 +1,13 @@
 const express = require('express');
 const path = require('path');
-const favicon = require('serve-favicon');
+// const favicon = require('serve-favicon');
 const logger = require('morgan');
+const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const user = require('./app_server/models/FacultyAdd');
 require ('./app_server/models/db');
 
 const index = require('./app_server/routes/index');
@@ -17,6 +19,16 @@ app.set('view engine', 'ejs');
 
 app.use(methodOverride('_method'))
 
+app.use(session({
+  key: 'user_sid',
+  secret: 'Astas',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      expires: 600000
+  }
+}));
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -26,13 +38,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
 app.use('/', index);
 
-app.get('/Faculty_login', (req,res,next)=>{
-  var phone = req.body.phone;
-  console.log(phone);
-});
+// app.get('/Faculty_login', (req,res,next)=>{
+//   var phone = req.body.phone;
+//   console.log(phone);
+// });
 
 //app.use('/notice-upload',noticeUpload);
 
@@ -43,6 +54,27 @@ app.use(function(req, res, next) {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
+});
+app.use((req, res, next) => {
+  if (req.cookies.user_sid && !req.session.user) {
+      res.clearCookie('user_sid');        
+  }
+  next();
+});
+var sessionChecker = (req, res, next) => {
+  if (req.session.user && req.cookies.user_sid) {
+      res.redirect('/faculty');
+  } else {
+      next();
+  }    
+};
+app.get('/logout', (req, res) => {
+  if (req.session.user && req.cookies.user_sid) {
+      res.clearCookie('user_sid');
+      res.redirect('/');
+  } else {
+      res.redirect('/faculty');
+  }
 });
 
 // error handler

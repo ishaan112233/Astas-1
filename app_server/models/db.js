@@ -1,15 +1,15 @@
 const mongoose=require('mongoose');
 const express = require('express');
 const path = require('path');
-
-let dbURI= 'mongodb://astas:astas123@ds121753.mlab.com:21753/astas';
+//const MONGOLAB_URI = 'mongodb://astas:astas123@ds121753.mlab.com:21753/astas';
+//var dbURI= process.env.MONGOLAB_URI;
 if(process.env.NODE_ENV=='production'){
     dbURI=process.env.MONGODB_URI;
 }
-mongoose.connect(dbURI);
+mongoose.connect('mongodb://astas:astas123@ds121753.mlab.com:21753/astas');
 
 mongoose.connection.on('connected', () => {
-  console.log(`Mongoose connected to ${dbURI}`);
+  console.log(`Mongoose connected to ${'mongodb://astas:astas123@ds121753.mlab.com:21753/astas'}`);
 });
 mongoose.connection.on('error', err => {
   console.log('Mongoose connection error:', err);
@@ -47,5 +47,5 @@ process.on('SIGTERM', () => {
 
 require('./SendTimetable');
 require('./FacultyAdd');
-require('./uploadedFaculty');
+
 
